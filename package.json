@@ -1,0 +1,17 @@
+{
+  "name": "wynChallenge",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "https://github.com/ghostkid130/Wynblogs.git",
+  "author": "ghostkid130 <urena.reynold+git@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "server": "nodemon ./server/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.20"
+  }
+}
