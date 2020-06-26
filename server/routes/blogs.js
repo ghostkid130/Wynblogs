@@ -8,7 +8,6 @@ const auth = require('../middleware/auth');
 \/\/\/\/\/\/\/\/\/\*/
 
 router.post('/', auth, async (req, res) => {
-    console.log(req.body)
     const blog = new Blog({
         'title': req.body.title,
         'owner': req.user._id,

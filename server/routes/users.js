@@ -18,9 +18,9 @@ router.post('/', async (req, res) => {
 });
 
 
-/*/\/\/\/\/\/\/\/\/\/
-- N E W   U S E R - |   
-\/\/\/\/\/\/\/\/\/\*/
+/*/\/\/\/\/\/\/\/\/\/\/\/
+- L O G I N   U S E R - |   
+\/\/\/\/\/\/\/\/\/\/\/\*/
 router.post('/login', async (req, res) => {
     try {
       const profile = await User.findByCredentials(

@@ -33,6 +33,9 @@ const userSchema = new mongoose.Schema({
                 throw new Error('Password must be at least 12 characters long!')
             }
         }
+    }, isAuthor:{
+        type: Boolean,
+        default: false
     },
     tokens: [{
         token: {
