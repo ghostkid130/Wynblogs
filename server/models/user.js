@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const validator = require('validator');
+const bcrypt = require('bcrypt')
 
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -74,11 +75,12 @@ if (!isMatch) {
 return user;
 };
 
-// This mongoose middleware will hash our user's passwords whenever a user is created or a user password is updated.
+// This mongoose middleware will hash our user's passwords 
+// whenever a user is created or a user password is updated.
 userSchema.pre('save', async function (next) {
 const user = this;
 if (user.isModified('password')) {
-    user.password = await bcrypt.hash(user.password, 8);
+    user.password = await bcrypt.hash(user.password, 12);
 }
 next();
 });
