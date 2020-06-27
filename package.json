@@ -6,7 +6,9 @@
   "author": "ghostkid130 <urena.reynold+git@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "server": "nodemon ./server/server.js"
+    "server": "nodemon ./server/server.js",
+    "client": "cd client && yarn run start",
+    "dev": "concurrently --kill-others-on-fail \"yarn run server\" \"yarn run client\""
   },
   "dependencies": {
     "bcrypt": "^5.0.0",

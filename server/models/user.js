@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
         lowercase: true,
-        unique: true,
+        // unique: true,
         validate(value){
             if( !validator.isEmail(value) ){ 
             throw new Error('Email is invalid')}
@@ -26,13 +26,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        validate(value){
-            if(value.toLowerCase() === 'password'){
-                throw new Error('Password cannot be password.')
-            } else if( value.length < 12){
-                throw new Error('Password must be at least 12 characters long!')
-            }
-        }
     }, isAuthor:{
         type: Boolean,
         default: false
