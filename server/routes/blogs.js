@@ -25,7 +25,8 @@ router.post('/new', auth, async (req, res) => {
 /*/\/\/\/\/\/\/\/\/\/\/\/\/\|
 - G E T   A L L   B L O G - |   
 \/\/\/\/\/\/\/\/\/\/\/\/\/\*/
-router.get('/', async (req, res) => {
+router.get('/all', async (req, res) => {
+    console.log('hit')
     try {
         const blogs = await Blog.find();
         res.status(201).send(blogs)
