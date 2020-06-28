@@ -21,7 +21,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/" exact   component={Home}        />
-          <Route path="/blog"     component={BlogPost}    />
+          <Route path="/blog/:id" component={BlogPost}    />
           <Route path="/signUp"   component={SignUp}      />
           <Route path="/login"    component={Login}       />
           <Route path="/makePost" component={CreatePost}  />

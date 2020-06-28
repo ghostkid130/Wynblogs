@@ -2,6 +2,7 @@ const Blog = require('../models/blog')
 const express = require('express');
 const router = new express.Router();
 const auth = require('../middleware/auth');
+const mongoose = require('mongoose');
 
 
 /*/\/\/\/\/\/\/\/\/\/
@@ -26,7 +27,6 @@ router.post('/new', auth, async (req, res) => {
 - G E T   A L L   B L O G - |   
 \/\/\/\/\/\/\/\/\/\/\/\/\/\*/
 router.get('/all', async (req, res) => {
-    console.log('hit')
     try {
         const blogs = await Blog.find();
         res.status(201).send(blogs)
@@ -35,9 +35,31 @@ router.get('/all', async (req, res) => {
     }
 });
 
+/*/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\|
+- G E T   S I N G L E   B L O G - |   
+\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\*/
+router.get('/:id', async (req, res) => {
+    const _id = req.params.id
+    try {
+        const blogs = await Blog.findById(_id);
+        res.status(201).send(blogs)
+    } catch (e) {
+        res.status(400).send(e)
+    }
+});
 
-
-
+/*/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\|
+- G E T   S I N G L E   B L O G - |   
+\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\*/
+router.get('/:id', async (req, res) => {
+    const _id = req.params.id
+    try {
+        const blogs = await Blog.findById(_id);
+        res.status(201).send(blogs)
+    } catch (e) {
+        res.status(400).send(e)
+    }
+});
 
 
 module.exports = router;
