@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const UserContext = React.createContext()
 
@@ -9,10 +9,14 @@ const UserContextProvider = (props) => {
         isAuthor: false
     })
 
+    useEffect( () => {
+        localStorage.setItem('author', userAccount.isAuthor)
+    }, [userAccount.isAuthor])
+
     return(
         <UserContext.Provider
             value={{
-                userAccount, setUserAccount
+                userAccount, setUserAccount,
             }}
         >
             {props.children} 

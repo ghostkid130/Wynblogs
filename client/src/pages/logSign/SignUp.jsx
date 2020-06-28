@@ -6,6 +6,7 @@ import { UserContext } from '../../context/UserContext'
 
 import './signUp.css'
 import axios from 'axios'
+
 const SignUp = () => {
     let history = useHistory()
     const { userAccount, setUserAccount } = useContext(UserContext)
@@ -14,12 +15,7 @@ const SignUp = () => {
         axios.post('/user', { ...userAccount })
             .then( data => {
                 localStorage.setItem('token', data.data.token);
-                sessionStorage.setItem('author', userAccount.isAuthor)
-                setUserAccount({
-                    firstName: '',  lastName:'',
-                    email:'',   password:'',
-                    isAuthor: false
-                })
+                setUserAccount({...userAccount, password: '', email: ''})
                 history.push('/')
             })
             .catch(e => console.error(e))

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { Paper, TextField, Button, FormControlLabel, Checkbox } from '@material-ui/core'
 import Nav  from '../../components/Nav'
 import { useHistory } from 'react-router-dom'
@@ -15,12 +15,7 @@ const Login = () => {
         axios.post('/user', { ...userAccount })
             .then( data => {
                 localStorage.setItem('token', data.data.token);
-                sessionStorage.setItem('author', userAccount.isAuthor)
-                setUserAccount({
-                    firstName: '',  lastName:'',
-                    email:'',   password:'',
-                    isAuthor: false
-                })
+                setUserAccount({...userAccount, password: '', email: ''})
                 history.push('/')
             })
             .catch(e => console.error(e))
@@ -30,7 +25,7 @@ const Login = () => {
         <div>
         <Nav />
         <Paper>
-        Sign Up
+        Log In
         <form autoComplete="off" onSubmit={handleLogin} className="signUp-form">
             <TextField 
             id="signUp-fName"

@@ -11,6 +11,7 @@ import Home from './pages/home/Home'
 import BlogPost from './pages/blogPost/BlogPost'
 import SignUp from './pages/logSign/SignUp'
 import Login from './pages/logSign/Login'
+import CreatePost from './pages/createPost/CreatePost'
 
 function App() {
 
@@ -19,11 +20,11 @@ function App() {
     <div>      
       <Router>
         <Switch>
-          <Route path="/" exact   component={Home}    />
-          <Route path="/blog"     component={BlogPost}/>
-          <Route path="/signUp"   component={SignUp}  />
-          <Route path="/login"    component={Login}   />
-
+          <Route path="/" exact   component={Home}        />
+          <Route path="/blog"     component={BlogPost}    />
+          <Route path="/signUp"   component={SignUp}      />
+          <Route path="/login"    component={Login}       />
+          <Route path="/makePost" component={CreatePost}  />
         </Switch>
       </Router>
     </div>

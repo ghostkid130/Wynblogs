@@ -43,21 +43,24 @@ const Nav = () => {
                     >
                         Sign Up
                     </Button>
-
-                    {/* <Button 
-                    className={btn.root}
-                    onClick={() => history.push('/blogPost')}
-                    >
-                        Make Post
-                    </Button> */}
-
                     </div> 
                 :
                     <div className="authBtn-container">
+                    {(Boolean(localStorage.getItem('author')) ? 
+                        <Button 
+                            className={btn.root}
+                            onClick={() => history.push("makePost")}
+                        >
+                            Make Post
+                        </Button> 
+                        :
+                        ''
+                    )}
                     <Button 
                         className={btn.root}
                         onClick={() => {
                             localStorage.removeItem('token'); 
+                            localStorage.removeItem('author');
                             setToken(false)
                         }}
                     >
