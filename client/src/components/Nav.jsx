@@ -27,7 +27,13 @@ const Nav = () => {
         <div>
         <AppBar position="static">
         <Toolbar className={nav.root} variant="dense">
-            <Typography variant="h6" noWrap>Material-UI</Typography>
+            <Typography 
+                variant="h6" 
+                noWrap
+                onClick={() => history.push('/')}
+            >
+                    BlogMe.com
+            </Typography>
             <div>
                 {/* Handles Login Button Renders*/}
                 {(Boolean(!token) ? 
@@ -45,14 +51,23 @@ const Nav = () => {
                     </Button>
                     </div> 
                 :
+                    /* If local token exist */
                     <div className="authBtn-container">
                     {(Boolean(localStorage.getItem('author')) ? 
+                    <>
                         <Button 
                             className={btn.root}
                             onClick={() => history.push("makePost")}
                         >
                             Make Post
                         </Button> 
+                        <Button 
+                            className={btn.root}
+                            onClick={() => history.push("/mypost")}
+                        >
+                            My Post
+                        </Button> 
+                    </>
                         :
                         ''
                     )}

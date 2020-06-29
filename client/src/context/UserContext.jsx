@@ -8,6 +8,7 @@ const UserContextProvider = (props) => {
         email:'',   password:'',
         isAuthor: false
     })
+    const [ authorEntries, setAuthorsEntries ] = useState([])
 
     useEffect( () => {
         localStorage.setItem('author', userAccount.isAuthor)
@@ -17,6 +18,7 @@ const UserContextProvider = (props) => {
         <UserContext.Provider
             value={{
                 userAccount, setUserAccount,
+                authorEntries, setAuthorsEntries
             }}
         >
             {props.children} 

@@ -12,6 +12,7 @@ import BlogPost from './pages/blogPost/BlogPost'
 import SignUp from './pages/logSign/SignUp'
 import Login from './pages/logSign/Login'
 import CreatePost from './pages/createPost/CreatePost'
+import MyPost from './pages/authorPost/MyPost'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/signUp"   component={SignUp}      />
           <Route path="/login"    component={Login}       />
           <Route path="/makePost" component={CreatePost}  />
+          <Route path="/mypost"   component={MyPost}      />
         </Switch>
       </Router>
     </div>

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react'
-import { TextField } from '@material-ui/core'
+import { TextField, Button } from '@material-ui/core'
 import Nav  from '../../components/Nav'
 import { BlogContext } from '../../context/BlogContext'
 import axios from 'axios'
@@ -11,7 +11,6 @@ const BlogPost = () => {
     const { blogEntry, setBlogEntry } = useContext(BlogContext)
     const [comment, setComment] = useState({
         comment: '',
-        ref: ''
     })
 
 
@@ -26,21 +25,41 @@ const BlogPost = () => {
             }).catch(e => console.log(e))
     }}, [])
 
+    const handleComment = () => {
+        console.log(comment)
+        axios({
+            method: "PATCH",
+            url:`/blog/comment/${location.pathname.split("/blog/")[1]}`,
+            headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
+            data: {comment: comment }
+        }).then(x => setBlogEntry(x.data))
+    }
+    console.log(blogEntry)
+
     return (
         <>
         <Nav />
         <div style={{border:'1px solid black'}}>
             <h1>{blogEntry.title}   </h1>
             <p>{blogEntry.author}   </p>
-            <p>{blogEntry.time}     </p>
-            <p>{blogEntry.text}     </p>
+            <p>{blogEntry.date}     </p>
+            <p>{blogEntry.body}     </p>
         <div>
+        {blogEntry.comments?.map((item) => (
+            <div>
+                <p>{item.author}</p>
+                <p>{item.body}</p>
+            </div>
+        ))}
             <TextField 
                 variant='outlined'
                 multiline
                 placeholder='Write a comment :-)'
                 onChange={(e) => setComment(e.target.value)}
             />
+            <Button onClick={() => handleComment()}>
+                Post Comment
+            </Button>
         </div>
 
         </div>
