@@ -1,6 +1,8 @@
 const express = require('express');
 const router = new express.Router();
 const User = require('../models/user');
+const auth = require('../middleware/auth');
+
 
 /*/\/\/\/\/\/\/\/\/\/
 - N E W   U S E R - |   
@@ -29,7 +31,8 @@ router.post('/login', async (req, res) => {
       );
       const user = {
         firstName: profile.firstName,
-        email: profile.email
+        email: profile.email,
+        author: profile.isAuthor
       };
       const token = await profile.generateAuthToken();
       res.send({ user, token });
@@ -38,5 +41,12 @@ router.post('/login', async (req, res) => {
     }
 });
 
+/*/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+- D I S C O V E R   S E L F -| 
+/\/\/\/\/\/\/\/\/\/\/\/\/\/\*/
+router.get('/i', auth, async(req, res) => {
+  try{
+  }catch(e){ res.status(400).send() }
+})
 
 module.exports = router;
