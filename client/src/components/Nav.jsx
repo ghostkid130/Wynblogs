@@ -2,6 +2,8 @@ import React, { useContext, useState } from 'react'
 import { AppBar, Toolbar, Typography, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { StyleContext } from '../context/StyleContext'
+import { UserContext } from '../context/UserContext'
+
 import './nav.css'
 import { useHistory } from 'react-router-dom'
 
@@ -18,7 +20,7 @@ const navStyle = makeStyles({
 const Nav = () => {
     let history = useHistory();
     const [token, setToken] = useState(localStorage.getItem("token"))
-
+    const { authorToken } = useContext(UserContext)
     const { buttonsStyle } = useContext(StyleContext)
     const btn = buttonsStyle()
     const nav = navStyle()
@@ -51,25 +53,24 @@ const Nav = () => {
                     </Button>
                     </div> 
                 :
-                    /* If local token exist */
+                    /* If local token exist check if author*/
                     <div className="authBtn-container">
-                    {(Boolean(localStorage.getItem('author')) ? 
+                    {(authorToken ? 
                     <>
                         <Button 
                             className={btn.root}
-                            onClick={() => history.push("makePost")}
+                            onClick={() => history.push('/makePost')}
                         >
                             Make Post
                         </Button> 
                         <Button 
                             className={btn.root}
-                            onClick={() => history.push("/mypost")}
+                            onClick={() => history.push('/mypost')}
                         >
                             My Post
                         </Button> 
                     </>
-                        :
-                        ''
+                        : ''
                     )}
                     <Button 
                         className={btn.root}

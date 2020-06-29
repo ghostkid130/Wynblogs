@@ -13,8 +13,9 @@ const Login = () => {
 
     const handleLogin = () => {
         axios.post('/user/login', { ...userAccount })
-            .then( data => {
-                localStorage.setItem('token', data.data.token);
+            .then( x => {
+                localStorage.setItem('token', x.data.token);
+                localStorage.setItem('author', x.data.user.author)
                 setUserAccount({...userAccount, password: '', email: ''})
                 history.push('/')
             })

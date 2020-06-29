@@ -1,10 +1,13 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import { TextField, Button } from '@material-ui/core'
 import Nav  from '../../components/Nav'
 import { BlogContext } from '../../context/BlogContext'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom' 
+import { AccountCircle } from '@material-ui/icons'
 
+
+import './blogPost.css'
 
 const BlogPost = () => {
     let location = useLocation()
@@ -12,7 +15,6 @@ const BlogPost = () => {
     const [comment, setComment] = useState({
         comment: '',
     })
-
 
     useEffect(() => {
         if(!blogEntry._id){
@@ -26,7 +28,6 @@ const BlogPost = () => {
     }}, [])
 
     const handleComment = () => {
-        console.log(comment)
         axios({
             method: "PATCH",
             url:`/blog/comment/${location.pathname.split("/blog/")[1]}`,
@@ -39,25 +40,33 @@ const BlogPost = () => {
     return (
         <>
         <Nav />
-        <div style={{border:'1px solid black'}}>
-            <h1>{blogEntry.title}   </h1>
-            <p>{blogEntry.author}   </p>
-            <p>{blogEntry.date}     </p>
-            <p>{blogEntry.body}     </p>
+        <div id="entry-container">
+            <h1>{blogEntry.title}</h1>
+            <p><AccountCircle /> {blogEntry.author}   </p>
+            <p id="entry-text">{blogEntry.body}</p>
         <div>
-        {blogEntry.comments?.map((item) => (
-            <div>
-                <p>{item.author}</p>
+        {blogEntry.comments?.map((item,key) => (
+            <div className={`comment-${key%2} comment`}>
                 <p>{item.body}</p>
+                <div className="comment-author">
+                    <AccountCircle />
+                    <p>{item.author}</p>
+                </div>
+
             </div>
         ))}
             <TextField 
+                style={{width:'80vw'}}
                 variant='outlined'
                 multiline
                 placeholder='Write a comment :-)'
                 onChange={(e) => setComment(e.target.value)}
             />
-            <Button onClick={() => handleComment()}>
+            <br/>
+            <Button 
+                variant="outlined"
+                color="primary"
+                onClick={() => handleComment()}>
                 Post Comment
             </Button>
         </div>

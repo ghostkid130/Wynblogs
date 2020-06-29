@@ -1,26 +1,28 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import Nav from '../../components/Nav'
 import axios from 'axios'
 import { UserContext } from '../../context/UserContext'
 import { Button } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
+import './mypost.css'
 
 const MyPost = () => {
     let history = useHistory();
     const { authorEntries, setAuthorsEntries } = useContext(UserContext)
+    const [toggle, setToggle] = useState(false)
      
     useEffect( () => {
         console.log("hit")
         axios.post('/blog/entries', { test: "test" }, 
             { headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}}
-         )
+        )
         .then(x => setAuthorsEntries(x.data))
         .catch(e => console.log(e))
-    }, [])
+    }, [toggle])
 
     function handleDelete(id){
         axios.delete( `/blog/delete/${id}`, { headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}} )
-        .then(x => console.log(x.data))
+        .then(x => setToggle(!toggle))
         .catch(e => console.log(e))
     }
 
@@ -28,11 +30,21 @@ const MyPost = () => {
         <div>
             <Nav />
             {authorEntries?.map(item => (
-                <div onClick={() => history.push(`/blog/${item._id}`)}>
-                    <h1>{item.title}</h1>
+                <div className='post-container'>
+                    <h1 onClick={(e) => {
+                        history.push(`/blog/${item._id}`)
+                    }}>
+                        {item.title}
+                    </h1>
+                    
                     <p>Comments: {item.comments.length} </p>
-                    {console.log(item)}
-                    <Button onClick={() => handleDelete(item._id)}>Delete</Button>
+                    <Button 
+                        variant="contained"
+                        color="primary"
+                        onClick={() => handleDelete(item._id)}
+                    >
+                        Delete
+                    </Button>
                 </div>
             ))}
         </div>

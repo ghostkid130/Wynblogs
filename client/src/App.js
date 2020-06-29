@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,9 +14,10 @@ import Login from './pages/logSign/Login'
 import CreatePost from './pages/createPost/CreatePost'
 import MyPost from './pages/authorPost/MyPost'
 
+import { UserContext } from './context/UserContext'
 function App() {
-
-
+  const { authorToken } = useContext(UserContext)
+  
   return (
     <div>      
       <Router>
@@ -25,8 +26,8 @@ function App() {
           <Route path="/blog/:id" component={BlogPost}    />
           <Route path="/signUp"   component={SignUp}      />
           <Route path="/login"    component={Login}       />
-          <Route path="/makePost" component={CreatePost}  />
-          <Route path="/mypost"   component={MyPost}      />
+          <Route path="/makePost" render={() => authorToken ? <CreatePost />  : <Home/>}/>
+          <Route path="/mypost"   render={() => authorToken ? <MyPost/>       : <Home/>}/>
         </Switch>
       </Router>
     </div>

@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { FormControl, TextField, Button } from '@material-ui/core'
+import { TextField, Button } from '@material-ui/core'
 import './createPost.css'
 import axios from 'axios'
 import Nav from '../../components/Nav'
+import { useHistory } from 'react-router-dom'
 
 const CreatePost = () => {
-
+    let history = useHistory();
     const [ post, setPost ] = useState({
         title: '', body:''
     })
@@ -17,7 +18,7 @@ const CreatePost = () => {
             headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
             data: {...post}
         })
-        .then((data) => console.log(data))
+        .then((x) => {history.push(`/blog/${x.data._id}`)})
         .catch(e => console.log(e))
     }
 
@@ -25,21 +26,26 @@ const CreatePost = () => {
         <div>
             <Nav />
             <form className="post-container" autoComplete="false">
+                <h1 id="title">Make a Post!</h1>
                 <TextField 
                     variant="outlined" 
                     placeholder="Title" 
-                    abel="title"
                     onChange={(e) => {setPost({...post, title: e.target.value})}}
                 />
+                <br />
                 <TextField 
                     multiline
                     variant="outlined" 
                     placeholder="Text" 
-                    label="text"
                     onChange={(e) => {setPost({...post, body: e.target.value})}}
                 />
-                <Button onClick={() => createPost()}>
-                    Create Post
+                <br />
+                <Button 
+                    variant="contained"
+                    color="primary"
+                    id="spacing"
+                    onClick={() => createPost()}>
+                    Create Entry!
                 </Button>
             </form>
         </div>

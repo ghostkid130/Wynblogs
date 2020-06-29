@@ -30,7 +30,8 @@ router.post('/login', async (req, res) => {
       );
       const user = {
         firstName: profile.firstName,
-        email: profile.email
+        email: profile.email,
+        author: profile.isAuthor
       };
       const token = await profile.generateAuthToken();
       res.send({ user, token });

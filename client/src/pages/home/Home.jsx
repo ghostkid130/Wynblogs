@@ -5,6 +5,7 @@ import { BlogContext } from '../../context/BlogContext'
 import { useHistory } from 'react-router-dom'
 import Nav  from '../../components/Nav'
 import axios from 'axios'
+import './home.css'
 
 const Home = () => {
     const [ blogs, setBlogs ] = useState([])
@@ -35,19 +36,18 @@ const Home = () => {
         <div>
             <Nav />
             {blogs?.map((item,key) => (
-            <div key={`Main-${key}`}>
+            <div className="blog-container" key={`Main-${key}`}>
                 <Container 
                     max-width="md" 
-                    style={{border: "1px solid black"}} 
                     key={item._id}
                     onClick={() => handlePostClick(item._id)}
                 >
+                    <h1 className="blog-titles">{item.title}</h1>
                     <div className="container-account" >
-                        <AccountCircle fontSize="large"/>
-                        <p>Posted by: {item.author}</p>
+                        <AccountCircle />
+                        <p>{item.author}</p>
                     </div>
-                    <h1>{item.title}</h1>
-                    <p>Posted: {item.date}</p>
+                    <p className="container-comment">Comment: {item.comments.length}</p> 
                 </Container>
             </div>
             ))}
