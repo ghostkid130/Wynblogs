@@ -4,15 +4,12 @@ import App from './App';
 import { StyleContextProvider } from './context/StyleContext'
 import * as serviceWorker from './serviceWorker';
 import { UserContextProvider } from './context/UserContext';
-import { BlogContextProvider } from './context/BlogContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <UserContextProvider>
     <StyleContextProvider>
-    <BlogContextProvider>
       <App />
-    </BlogContextProvider>
     </StyleContextProvider>
     </UserContextProvider>
   </React.StrictMode>,

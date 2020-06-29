@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Container } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
-import { BlogContext } from '../../context/BlogContext'
+import { UserContext } from '../../context/UserContext'
 import { useHistory } from 'react-router-dom'
 import Nav  from '../../components/Nav'
 import axios from 'axios'
@@ -9,19 +9,18 @@ import './home.css'
 
 const Home = () => {
     const [ blogs, setBlogs ] = useState([])
-    const { setBlogEntry } = useContext(BlogContext)
+    const { setBlogEntry } = useContext(UserContext)
     let history = useHistory()
 
     useEffect(()=> {
         axios({ 
             method: "GET",
             url:'/blog/all'
-        }).then(x => { setBlogs(x.data); console.log(x.data) }
+        }).then(x => { setBlogs(x.data)}
         ).catch(e => console.log(e.message))
     },[])
 
     function handlePostClick(id){
-        console.log(id)
         axios({
             method:"GET",
             url:`/blog/${id}`,

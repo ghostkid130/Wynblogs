@@ -1,11 +1,13 @@
-import React, { useContext, useState } from 'react'
-import { AppBar, Toolbar, Typography, Button } from '@material-ui/core'
+import React, { useContext, useEffect, useState } from 'react'
+import { AppBar, Toolbar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { StyleContext } from '../context/StyleContext'
 import { UserContext } from '../context/UserContext'
 
 import './nav.css'
 import { useHistory } from 'react-router-dom'
+import AuthorButton from './AuthorButton'
+import LogOutButton from './LogOutButton'
+import LoginButtons from './LoginButtons'
 
 const navStyle = makeStyles({
     root: {
@@ -14,17 +16,23 @@ const navStyle = makeStyles({
       display: 'flex',
       'flex-direction': 'row',
       'justify-content': 'space-around'
-    },
+    }
 });
 
 const Nav = () => {
     let history = useHistory();
-    const [token, setToken] = useState(localStorage.getItem("token"))
-    const { authorToken } = useContext(UserContext)
-    const { buttonsStyle } = useContext(StyleContext)
-    const btn = buttonsStyle()
+    const { setAuthorToken, token, authorToken, setToken } = useContext(UserContext)
     const nav = navStyle()
+    const [ status, setStatus ] = useState(false)
 
+    useEffect(() => {
+        console.log('triggered')
+        if(token){
+            console.log(this)
+            setAuthorToken(() => localStorage.getItem('author'))
+            setToken(() => localStorage.getItem('token'))
+        }
+    }, [token])
     return (
         <div>
         <AppBar position="static">
@@ -36,58 +44,10 @@ const Nav = () => {
             >
                     BlogMe.com
             </Typography>
-            <div>
                 {/* Handles Login Button Renders*/}
-                {(Boolean(!token) ? 
-                    <div className="authBtn-container">
-                    <Button className={btn.root}
-                            onClick={() => history.push('/logIn')}
-                    >
-                        Log In
-                    </Button>
-                    <Button 
-                        className={btn.root}
-                        onClick={() => history.push('/signUp')}
-                    >
-                        Sign Up
-                    </Button>
-                    </div> 
-                :
-                    /* If local token exist check if author*/
-                    <div className="authBtn-container">
-                    {(authorToken ? 
-                    <>
-                        <Button 
-                            className={btn.root}
-                            onClick={() => history.push('/makePost')}
-                        >
-                            Make Post
-                        </Button> 
-                        <Button 
-                            className={btn.root}
-                            onClick={() => history.push('/mypost')}
-                        >
-                            My Post
-                        </Button> 
-                    </>
-                        : ''
-                    )}
-                    <Button 
-                        className={btn.root}
-                        onClick={() => {
-                            localStorage.removeItem('token'); 
-                            localStorage.removeItem('author');
-                            setToken(false)
-                        }}
-                    >
-                        Log out
-                    </Button>
-                    </div>
-                )}
-            
-                
-
-            </div>
+                { !token  ?  <LoginButtons /> : '' }
+                { (token && authorToken) ?   <AuthorButton/>  : '' }
+                { (token && !authorToken) ?  <LogOutButton />: '' }
         </Toolbar>
         </AppBar>
         </div>

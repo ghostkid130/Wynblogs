@@ -18,7 +18,7 @@ const CreatePost = () => {
             headers: {Authorization: `Bearer ${localStorage.getItem('token')}`},
             data: {...post}
         })
-        .then((x) => {history.push(`/blog/${x.data._id}`)})
+        .then((x) => history.push(`/blog/${x.data._id}`))
         .catch(e => console.log(e))
     }
 
@@ -30,6 +30,7 @@ const CreatePost = () => {
                 <TextField 
                     variant="outlined" 
                     placeholder="Title" 
+                    fullWidth="true"
                     onChange={(e) => {setPost({...post, title: e.target.value})}}
                 />
                 <br />
@@ -37,6 +38,7 @@ const CreatePost = () => {
                     multiline
                     variant="outlined" 
                     placeholder="Text" 
+                    fullWidth="true"
                     onChange={(e) => {setPost({...post, body: e.target.value})}}
                 />
                 <br />
@@ -47,6 +49,7 @@ const CreatePost = () => {
                     onClick={() => createPost()}>
                     Create Entry!
                 </Button>
+                <p>P.S. You must be an author to make post ;^)</p>
             </form>
         </div>
     )

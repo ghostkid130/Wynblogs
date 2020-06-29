@@ -12,25 +12,27 @@ const MyPost = () => {
     const [toggle, setToggle] = useState(false)
      
     useEffect( () => {
-        console.log("hit")
         axios.post('/blog/entries', { test: "test" }, 
             { headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}}
         )
         .then(x => setAuthorsEntries(x.data))
         .catch(e => console.log(e))
-    }, [toggle])
+    }, [toggle ])
 
     function handleDelete(id){
         axios.delete( `/blog/delete/${id}`, { headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}} )
         .then(x => setToggle(!toggle))
         .catch(e => console.log(e))
     }
+    function handleEdit(id){
+        history.push(`/edit/${id}`)
+    }
 
     return (
         <div>
             <Nav />
-            {authorEntries?.map(item => (
-                <div className='post-container'>
+            {authorEntries?.map((item, key) => (
+                <div className='post-container' key={`authorPost-${key}`}>
                     <h1 onClick={(e) => {
                         history.push(`/blog/${item._id}`)
                     }}>
@@ -38,13 +40,24 @@ const MyPost = () => {
                     </h1>
                     
                     <p>Comments: {item.comments.length} </p>
-                    <Button 
-                        variant="contained"
-                        color="primary"
-                        onClick={() => handleDelete(item._id)}
-                    >
-                        Delete
-                    </Button>
+                    <div id='btn-container'> 
+                        <Button 
+                            variant="contained"
+                            color="secondary"
+                            style={{width:"100px", margin:"4px"}}
+                            onClick={() => handleDelete(item._id)}
+                        >
+                            Delete
+                        </Button>
+                        <Button 
+                            variant="contained"
+                            color="primary"
+                            style={{width:"100px", margin:"4px"}}
+                            onClick={() => handleEdit(item._id)}
+                        >
+                            Edit  
+                        </Button>
+                    </div>
                 </div>
             ))}
         </div>

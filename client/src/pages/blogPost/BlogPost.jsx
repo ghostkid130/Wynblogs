@@ -1,7 +1,7 @@
-import React, { useState, useContext, useEffect, useRef } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { TextField, Button } from '@material-ui/core'
 import Nav  from '../../components/Nav'
-import { BlogContext } from '../../context/BlogContext'
+import { UserContext } from '../../context/UserContext'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom' 
 import { AccountCircle } from '@material-ui/icons'
@@ -11,21 +11,20 @@ import './blogPost.css'
 
 const BlogPost = () => {
     let location = useLocation()
-    const { blogEntry, setBlogEntry } = useContext(BlogContext)
+    const { blogEntry, setBlogEntry } = useContext(UserContext)
     const [comment, setComment] = useState({
         comment: '',
     })
 
     useEffect(() => {
-        if(!blogEntry._id){
-            axios({
-                method:"GET",
-                url:`/blog/${location.pathname.split("/blog/")[1]}`,
-                data: location.pathname.split("/blog/")[1]
-            }).then(x => {
-                setBlogEntry(x.data)
-            }).catch(e => console.log(e))
-    }}, [])
+        axios({
+            method:"GET",
+            url:`/blog/${location.pathname.split("/blog/")[1]}`,
+            data: location.pathname.split("/blog/")[1]
+        }).then(x => {
+            setBlogEntry(x.data)
+        }).catch(e => console.log(e))
+    }, [blogEntry._id, location.pathname])
 
     const handleComment = () => {
         axios({
@@ -35,7 +34,6 @@ const BlogPost = () => {
             data: {comment: comment }
         }).then(x => setBlogEntry(x.data))
     }
-    console.log(blogEntry)
 
     return (
         <>
@@ -46,7 +44,7 @@ const BlogPost = () => {
             <p id="entry-text">{blogEntry.body}</p>
         <div>
         {blogEntry.comments?.map((item,key) => (
-            <div className={`comment-${key%2} comment`}>
+            <div className={`comment-${key%2} comment`} key={`comment-${key}`}>
                 <p>{item.body}</p>
                 <div className="comment-author">
                     <AccountCircle />

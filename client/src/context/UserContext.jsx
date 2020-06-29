@@ -10,21 +10,26 @@ const UserContextProvider = (props) => {
     })
     const [ authorEntries, setAuthorsEntries ] = useState([])
     const [ authorToken, setAuthorToken ] = useState(false)
-
+    const [ blogEntry, setBlogEntry ] = useState({})
+    const [ editBlogEntry, setEditBlogEntry ] = useState({})
+    const [ token, setToken ] = useState(localStorage.getItem("token"))
 
 
     useEffect( () => {
-        console.log("hello")
-        localStorage.setItem('author', userAccount.isAuthor)
-        setAuthorToken(localStorage.getItem('author'))
-    }, [userAccount.isAuthor])
+        if(authorToken !== localStorage.getItem('author')){
+            setAuthorToken(localStorage.getItem('author'))
+        }
+    }, [authorToken])
 
     return(
         <UserContext.Provider
             value={{
                 userAccount, setUserAccount,
                 authorEntries, setAuthorsEntries,
-                authorToken, setAuthorToken
+                authorToken, setAuthorToken,
+                token, setToken,
+                blogEntry, setBlogEntry,
+                editBlogEntry, setEditBlogEntry
             }}
         >
             {props.children} 

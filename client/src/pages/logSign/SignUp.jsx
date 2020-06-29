@@ -14,7 +14,9 @@ const SignUp = () => {
     const handleRegistration = () => {
         axios.post('/user', { ...userAccount })
             .then( data => {
+                console.log(data)
                 localStorage.setItem('token', data.data.token);
+                localStorage.setItem('author', data.data.user.isAuthor)
                 setUserAccount({...userAccount, password: '', email: ''})
                 history.push('/')
             })

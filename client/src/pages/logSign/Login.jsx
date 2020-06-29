@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Paper, TextField, Button, FormControlLabel, Checkbox } from '@material-ui/core'
+import { Paper, TextField, Button } from '@material-ui/core'
 import Nav  from '../../components/Nav'
 import { useHistory } from 'react-router-dom'
 import { UserContext } from '../../context/UserContext'

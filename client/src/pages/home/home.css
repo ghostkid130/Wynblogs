@@ -1,8 +1,7 @@
 .blog-container{
     padding: 0px;
     margin: 32px auto;
-    max-width: 450px;
-    min-width: 200px;
+    width: 40vw;
     box-shadow: 2px 2px 8px .25px #888888;
     border-radius: 5px;
 }

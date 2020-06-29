@@ -107,6 +107,22 @@ router.delete('/delete/:id', auth, async (req,res) => {
     }
 })
 
+/*/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/|
+- E D I T      S I N G L E        P O S T  - |   
+\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
+router.patch('/edit/:id', auth, async (req,res) => {
+    try{
+        const blog = await Blog.findOne({ _id: req.params.id })
+        if(!blog){ res.send(404).send() }
+        blog.title = req.body.title
+        blog.body = req.body.body
+        blog.save()
+        res.send(blog)
+    } catch (e){
+        res.status(500).send()
+    }
+})
+
 
 
 

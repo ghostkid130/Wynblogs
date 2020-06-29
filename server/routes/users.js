@@ -1,13 +1,14 @@
 const express = require('express');
 const router = new express.Router();
 const User = require('../models/user');
+const auth = require('../middleware/auth');
+
 
 /*/\/\/\/\/\/\/\/\/\/
 - N E W   U S E R - |   
 \/\/\/\/\/\/\/\/\/\*/
 
 router.post('/', async (req, res) => {
-  console.log(req.body)
     const user = new User(req.body);
     try{
         await user.save();
@@ -43,7 +44,7 @@ router.post('/login', async (req, res) => {
 /*/\/\/\/\/\/\/\/\/\/\/\/\/\/\
 - D I S C O V E R   S E L F -| 
 /\/\/\/\/\/\/\/\/\/\/\/\/\/\*/
-router.get('/i', async(req, res) => {
+router.get('/i', auth, async(req, res) => {
   try{
     console.log('hello')
   }catch(e){ res.status(400).send() }
