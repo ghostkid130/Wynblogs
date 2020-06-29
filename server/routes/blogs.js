@@ -70,9 +70,7 @@ router.patch('/comment/:id', commentAuth, async (req, res) => {
         let blog = await Blog.findOne({
             _id: req.params.id,
         })
-        console.log("blog b4", blog)
         blog.comments.push(newComment)
-        console.log('blog after', blog)
         blog.save()
         res.status(201).send(blog)
     } catch (e) {
@@ -84,9 +82,6 @@ router.patch('/comment/:id', commentAuth, async (req, res) => {
 - S E L E C T   A L L   B L O G   P O S T  - |   
 \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
 router.post('/entries', auth, async (req, res) => {
-    // let entries = await Blog.find({
-    //     owner: req.user.id,
-    // })
     let entries;
     try {
         entries = await Blog.find({
@@ -97,6 +92,20 @@ router.post('/entries', auth, async (req, res) => {
         res.status(400).send(e)
     }
 });
+
+/*/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/|
+- D E L E T E   S I N G L E       P O S T  - |   
+\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/*/
+router.delete('/delete/:id', auth, async (req,res) => {
+    Blog.deleteOne({ _id: req.params.id })
+    try{
+        const blog = await Blog.deleteOne({ _id: req.params.id })
+        if(!blog){ res.send(404).send() }
+        res.send(blog)
+    } catch (e){
+        res.status(500).send()
+    }
+})
 
 
 

@@ -34,31 +34,23 @@ const Home = () => {
     return (
         <div>
             <Nav />
-            {blogs?.map(item => (
-            <>
-            <Container 
-                max-width="md" 
-                style={{border: "1px solid black"}} 
-                key={item._id}
-                onClick={() => handlePostClick(item._id)}
-            >
-                <div className="container-account" >
-                    <AccountCircle fontSize="large"/>
-                    <p>Posted by: {item.author}</p>
-                </div>
-                <h1>{item.title}</h1>
-                <p>Posted: {item.date}</p>
-            </Container>
-            </>
+            {blogs?.map((item,key) => (
+            <div key={`Main-${key}`}>
+                <Container 
+                    max-width="md" 
+                    style={{border: "1px solid black"}} 
+                    key={item._id}
+                    onClick={() => handlePostClick(item._id)}
+                >
+                    <div className="container-account" >
+                        <AccountCircle fontSize="large"/>
+                        <p>Posted by: {item.author}</p>
+                    </div>
+                    <h1>{item.title}</h1>
+                    <p>Posted: {item.date}</p>
+                </Container>
+            </div>
             ))}
-            {/* <Modal 
-                open={mode}
-                onClose={() => setMode(false)}
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description"
-            >
-                <p>Hello</p>
-            </Modal> */}
         </div>
     )
 }

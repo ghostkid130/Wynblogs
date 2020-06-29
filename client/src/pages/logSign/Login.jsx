@@ -12,7 +12,7 @@ const Login = () => {
     const { userAccount, setUserAccount } = useContext(UserContext)
 
     const handleLogin = () => {
-        axios.post('/user', { ...userAccount })
+        axios.post('/user/login', { ...userAccount })
             .then( data => {
                 localStorage.setItem('token', data.data.token);
                 setUserAccount({...userAccount, password: '', email: ''})
@@ -27,18 +27,6 @@ const Login = () => {
         <Paper>
         Log In
         <form autoComplete="off" onSubmit={handleLogin} className="signUp-form">
-            <TextField 
-            id="signUp-fName"
-            variant="filled"
-            label="First Name"
-            onChange={(e) => setUserAccount({...userAccount, firstName: e.target.value})}
-            />
-            <TextField 
-            id="signUp-lName"
-            variant="filled"
-            label="Last Name"
-            onChange={(e) => setUserAccount({...userAccount, lastName: e.target.value})}
-            />
             <TextField 
             id="signUp-email"
             variant="filled"
