@@ -46,7 +46,6 @@ router.post('/login', async (req, res) => {
 /\/\/\/\/\/\/\/\/\/\/\/\/\/\*/
 router.get('/i', auth, async(req, res) => {
   try{
-    console.log('hello')
   }catch(e){ res.status(400).send() }
 })
 

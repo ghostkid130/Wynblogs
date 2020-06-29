@@ -34,6 +34,7 @@ const Home = () => {
     return (
         <div>
             <Nav />
+            <h1 id="home-title">Blog Entries</h1>
             {blogs?.map((item,key) => (
             <div className="blog-container" key={`Main-${key}`}>
                 <Container 

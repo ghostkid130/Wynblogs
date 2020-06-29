@@ -20,3 +20,8 @@
 .container-comment{
     text-align: center;
 }
+
+#home-title{
+    margin: 24px auto 0 auto;
+    text-align: center;
+}

@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-console.log("Hello")
-
 try{
     mongoose.connect(process.env.MONGODB_PRIME, {
         useNewUrlParser: true,

@@ -17,7 +17,7 @@ const MyPost = () => {
         )
         .then(x => setAuthorsEntries(x.data))
         .catch(e => console.log(e))
-    }, [toggle ])
+    }, [toggle, setAuthorsEntries])
 
     function handleDelete(id){
         axios.delete( `/blog/delete/${id}`, { headers: {Authorization: `Bearer ${localStorage.getItem('token')}`}} )

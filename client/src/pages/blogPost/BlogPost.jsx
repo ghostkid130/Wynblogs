@@ -24,7 +24,7 @@ const BlogPost = () => {
         }).then(x => {
             setBlogEntry(x.data)
         }).catch(e => console.log(e))
-    }, [blogEntry._id, location.pathname])
+    }, [blogEntry._id, location.pathname, setBlogEntry])
 
     const handleComment = () => {
         axios({
@@ -41,7 +41,10 @@ const BlogPost = () => {
         <div id="entry-container">
             <h1>{blogEntry.title}</h1>
             <p><AccountCircle /> {blogEntry.author}   </p>
-            <p id="entry-text">{blogEntry.body}</p>
+            <div id="entry-body">
+                <img src="https://picsum.photos/200/300" alt="My favorite random article"/>
+                <p id="entry-text">{blogEntry.body}</p>
+            </div>
         <div>
         {blogEntry.comments?.map((item,key) => (
             <div className={`comment-${key%2} comment`} key={`comment-${key}`}>

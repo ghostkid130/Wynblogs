@@ -5,6 +5,7 @@
 }
 #entry-text{
     font-size: 1.5rem;
+    margin: 8px 2rem;
 }
 .comment{
     border: 1px solid black;
@@ -17,4 +18,12 @@
 .comment-author{
     display: flex;
     align-items: center;
+}
+
+#entry-body{
+    display: flex;
+    margin: 24px 0px;
+    border: 1px solid gray;
+    border-radius: 15px;
+    overflow: hidden;
 }

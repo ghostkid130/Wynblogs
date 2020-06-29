@@ -3,10 +3,8 @@ import { Button } from '@material-ui/core'
 import { StyleContext } from '../context/StyleContext'
 import { UserContext } from '../context/UserContext'
 
-
 const LogOutButton = () => {
-    const { setToken } = useContext(UserContext)
-
+    const { setToken, setAuthorToken } = useContext(UserContext)
     const { buttonsStyle } = useContext(StyleContext)
     const btn = buttonsStyle()
 
@@ -18,6 +16,7 @@ const LogOutButton = () => {
                     localStorage.removeItem('token'); 
                     localStorage.removeItem('author');
                     setToken(false)
+                    setAuthorToken(false)
                 }}
             >
                 Log out

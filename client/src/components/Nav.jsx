@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { AppBar, Toolbar, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { UserContext } from '../context/UserContext'
@@ -23,16 +23,14 @@ const Nav = () => {
     let history = useHistory();
     const { setAuthorToken, token, authorToken, setToken } = useContext(UserContext)
     const nav = navStyle()
-    const [ status, setStatus ] = useState(false)
 
     useEffect(() => {
-        console.log('triggered')
         if(token){
-            console.log(this)
             setAuthorToken(() => localStorage.getItem('author'))
             setToken(() => localStorage.getItem('token'))
         }
-    }, [token])
+    }, [token, setAuthorToken, setToken])
+
     return (
         <div>
         <AppBar position="static">
@@ -45,9 +43,9 @@ const Nav = () => {
                     BlogMe.com
             </Typography>
                 {/* Handles Login Button Renders*/}
-                { !token  ?  <LoginButtons /> : '' }
-                { (token && authorToken) ?   <AuthorButton/>  : '' }
-                { (token && !authorToken) ?  <LogOutButton />: '' }
+                { Boolean(!token)    ?  <LoginButtons /> : '' }
+                { (Boolean(authorToken)  && token)?  <AuthorButton/>  : '' }
+                { (Boolean(!authorToken) && token) ?   <LogOutButton />: '' }
         </Toolbar>
         </AppBar>
         </div>

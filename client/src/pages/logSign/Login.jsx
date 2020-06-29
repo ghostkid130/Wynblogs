@@ -9,13 +9,15 @@ import axios from 'axios'
 
 const Login = () => {
     let history = useHistory()
-    const { userAccount, setUserAccount } = useContext(UserContext)
+    const { userAccount, setUserAccount, setAuthorToken, setToken } = useContext(UserContext)
 
     const handleLogin = () => {
         axios.post('/user/login', { ...userAccount })
             .then( x => {
                 localStorage.setItem('token', x.data.token);
                 localStorage.setItem('author', x.data.user.author)
+                setAuthorToken(x.data.user.token)
+                setToken(x.data.token)
                 setUserAccount({...userAccount, password: '', email: ''})
                 history.push('/')
             })

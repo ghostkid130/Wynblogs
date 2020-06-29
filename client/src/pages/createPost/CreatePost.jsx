@@ -30,7 +30,7 @@ const CreatePost = () => {
                 <TextField 
                     variant="outlined" 
                     placeholder="Title" 
-                    fullWidth="true"
+                    fullWidth
                     onChange={(e) => {setPost({...post, title: e.target.value})}}
                 />
                 <br />
@@ -38,7 +38,7 @@ const CreatePost = () => {
                     multiline
                     variant="outlined" 
                     placeholder="Text" 
-                    fullWidth="true"
+                    fullWidth
                     onChange={(e) => {setPost({...post, body: e.target.value})}}
                 />
                 <br />
